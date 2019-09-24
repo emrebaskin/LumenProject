@@ -7,6 +7,7 @@ use App\Http\Traits\Jwt;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 class AuthController extends Controller
@@ -57,6 +58,42 @@ class AuthController extends Controller
         } catch (Exception $e) {
             //return error message
             return response()->json(['message' => 'User Registration Failed!'], 409);
+        }
+
+    }
+
+    public function login()
+    {
+
+        try {
+
+            $this->validate($this->request, [
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+            // Find the user by email
+            $user = User::where('email', $this->request->input('email'))->first();
+
+            if (!$user) {
+                return response()->json([
+                    'error' => 'Email does not exist.'
+                ], 400);
+            }
+
+            // Verify the password and generate the token
+            if (Hash::check($this->request->input('password'), $user->password)) {
+                return response()->json([
+                    'token' => $this->jwt($user)
+                ], 200);
+            }
+
+            // Bad Request response
+            return response()->json(['error' => 'Email or password is wrong.'], 400);
+
+        } catch (Exception $e) {
+            //return error message
+            return response()->json(['error' => 'Login Failed!'], 409);
         }
 
     }

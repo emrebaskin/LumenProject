@@ -26,14 +26,14 @@ class JwtRegisterLoginHashTest extends TestCase
         $this->seeStatusCode(201);
         $this->seeJsonStructure(['token']);
 
-//        // Login
-//        $this->json('POST', '/login', [
-//            'email' => 'unittest@testmail.com',
-//            'password' => 'unittest'
-//        ]);
-//        $this->seeStatusCode(200);
-//        $this->seeJsonStructure(['token']);
-//
+        // Login
+        $this->json('POST', '/login', [
+            'email' => 'unittest@testmail.com',
+            'password' => 'unittest'
+        ]);
+        $this->seeStatusCode(200);
+        $this->seeJsonStructure(['token']);
+
 //        // Hash
 //        $response = json_decode($this->response->getContent());
 //        $query = http_build_query(['token' => $response->token]);
