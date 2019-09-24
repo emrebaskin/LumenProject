@@ -17,4 +17,9 @@ $router->get('/', function () use ($router) {
 
 $router->post('/register',  'AuthController@register');
 $router->post('/login',  'AuthController@login');
-$router->get('/hash',  'HashController@generate');
+
+$router->group( ['middleware' => 'jwt'],
+    function() use ($router) {
+        $router->get('/hash',  'HashController@generate');
+    }
+);
