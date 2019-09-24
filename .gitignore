@@ -21,3 +21,5 @@ Homestead.json
 
 .idea/
 .editorconfig
+.phpunit.result.cache
+composer.lock

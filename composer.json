@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "emrebskn/random-hash": "dev-master",
+        "firebase/php-jwt": "^5.0",
         "laravel/lumen-framework": "^6.0"
     },
     "require-dev": {
